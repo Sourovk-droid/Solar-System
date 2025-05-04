@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Solar System</title>
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .solar-system {
+            position: relative;
+            width: 1000px;
+            height: 1000px;
+        }
+
+        .sun {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: radial-gradient(#ffd700, #ff4500);
+            box-shadow: 0 0 80px #ff4500;
+            z-index: 1;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .planet {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Planet sizes and colors */
+        .mercury { width: 8px; height: 8px; background: #A0522D; }
+        .venus { width: 12px; height: 12px; background: #DEB887; }
+        .earth { width: 14px; height: 14px; background: #4169E1; }
+        .mars { width: 10px; height: 10px; background: #CD5C5C; }
+        .jupiter { width: 30px; height: 30px; background: #DAA520; }
+        .saturn { width: 25px; height: 25px; background: #F4A460; }
+        .uranus { width: 18px; height: 18px; background: #87CEEB; }
+        .neptune { width: 16px; height: 16px; background: #1E90FF; }
+        .pluto { width: 6px; height: 6px; background: #D2B48C; }
+    </style>
+</head>
+<body>
+    <div class="solar-system">
+        <div class="sun"></div>
+        
+        <!-- Planets with orbits -->
+        <div class="orbit" style="width: 100px; height: 100px;">
+            <div class="planet mercury" id="mercury"></div>
+        </div>
+        
+        <div class="orbit" style="width: 140px; height: 140px;">
+            <div class="planet venus" id="venus"></div>
+        </div>
+        
+        <div class="orbit" style="width: 200px; height: 200px;">
+            <div class="planet earth" id="earth"></div>
+        </div>
+        
+        <div class="orbit" style="width: 260px; height: 260px;">
+            <div class="planet mars" id="mars"></div>
+        </div>
+        
+        <div class="orbit" style="width: 360px; height: 360px;">
+            <div class="planet jupiter" id="jupiter"></div>
+        </div>
+        
+        <div class="orbit" style="width: 440px; height: 440px;">
+            <div class="planet saturn" id="saturn"></div>
+        </div>
+        
+        <div class="orbit" style="width: 520px; height: 520px;">
+            <div class="planet uranus" id="uranus"></div>
+        </div>
+        
+        <div class="orbit" style="width: 600px; height: 600px;">
+            <div class="planet neptune" id="neptune"></div>
+        </div>
+        
+        <div class="orbit" style="width: 680px; height: 680px;">
+            <div class="planet pluto" id="pluto"></div>
+        </div>
+    </div>
+
+    <script>
+        function animatePlanet(planetId, speed) {
+            const planet = document.getElementById(planetId);
+            let angle = 0;
+            
+            function updatePosition() {
+                const orbit = planet.parentElement;
+                const radiusX = orbit.offsetWidth / 2;
+                const radiusY = orbit.offsetHeight / 2;
+                
+                const x = Math.cos(angle) * radiusX;
+                const y = Math.sin(angle) * radiusY;
+                
+                planet.style.left = `${50 + x / radiusX * 50}%`;
+                planet.style.top = `${50 + y / radiusY * 50}%`;
+                
+                angle += speed;
+                requestAnimationFrame(updatePosition);
+            }
+            
+            updatePosition();
+        }
+
+        // Start animations with different speeds (lower number = faster)
+        animatePlanet('mercury', 0.03);
+        animatePlanet('venus', 0.02);
+        animatePlanet('earth', 0.015);
+        animatePlanet('mars', 0.012);
+        animatePlanet('jupiter', 0.008);
+        animatePlanet('saturn', 0.006);
+        animatePlanet('uranus', 0.004);
+        animatePlanet('neptune', 0.003);
+        animatePlanet('pluto', 0.002);
+    </script>
+</body>
+</html>
